@@ -28,4 +28,14 @@ public class HomeController : Controller
     {
         return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
     }
+    public IActionResult AvailableEquipment()
+    {
+        var availableList = EquipmentRepository.GetAll().Where(e => e.IsAvailable);
+        return View(availableList);
+    }
+    public IActionResult Requests()
+    {
+        var requests = RequestRepository.GetAll();
+        return View(requests);
+    }
 }
