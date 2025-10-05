@@ -38,7 +38,7 @@ public class HomeController : Controller
     public IActionResult Requests()
     {
         var allRequests = RequestRepository.GetAll();
-        return View(allRequests); 
+        return View(allRequests);
     }
 
     public IActionResult AllEquipment()
@@ -52,9 +52,8 @@ public class HomeController : Controller
         var model = new EquipmentRequest(); // optional, just to pass an empty model
         return View(model);
     }
-    
+
     [HttpPost]
-    [ValidateAntiForgeryToken]
     public IActionResult RequestForm(EquipmentRequest request)
     {
         if (!ModelState.IsValid)
@@ -62,13 +61,10 @@ public class HomeController : Controller
             return View(request);
         }
 
-        RequestRepository.Add(request);
+        RequestRepository.Add(request); 
 
-        return RedirectToAction("Confirmation");
-    }
-    public IActionResult Confirmation()
-    {
-        ViewData["Message"] = "Your request has been submitted! Someone from IT will contact you soon.";
-        return View();
+        ViewBag.RequestId = request.Id; 
+
+        return View("Confirmation"); // make sure this matches your confirmation view name
     }
 }
