@@ -37,8 +37,8 @@ public class HomeController : Controller
 
     public IActionResult Requests()
     {
-        var requests = RequestRepository.GetAll();
-        return View(requests);
+        var allRequests = RequestRepository.GetAll();
+        return View(allRequests); 
     }
 
     public IActionResult AllEquipment()
@@ -46,7 +46,13 @@ public class HomeController : Controller
         var equipmentList = EquipmentRepository.GetAll();
         return View(equipmentList);
     }
-
+    [HttpGet]
+    public IActionResult RequestForm()
+    {
+        var model = new EquipmentRequest(); // optional, just to pass an empty model
+        return View(model);
+    }
+    
     [HttpPost]
     [ValidateAntiForgeryToken]
     public IActionResult RequestForm(EquipmentRequest request)
