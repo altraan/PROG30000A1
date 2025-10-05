@@ -1,0 +1,39 @@
+@model IEnumerable<Assign1PROG30000.Models.Equipment>
+
+@{
+    ViewData["Title"] = "All Equipment Listing";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<table class="table table-striped table-bordered mt-3">
+    <thead class="table-dark">
+        <tr>
+            <th>Id</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Available</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            var rowClass = item.IsAvailable ? "table-success" : "table-danger";
+            <tr class="@rowClass">
+                <td>@item.Id</td>
+                <td>@item.Type</td>
+                <td>@item.Description</td>
+                <td>@(item.IsAvailable ? "Yes" : "No")</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<style>
+    .table-success {
+        background-color: #d1f7d1;
+    }
+    .table-danger {
+        background-color: #f8d7da;
+    }
+</style>
