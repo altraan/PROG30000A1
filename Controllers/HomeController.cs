@@ -28,14 +28,41 @@ public class HomeController : Controller
     {
         return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
     }
+
     public IActionResult AvailableEquipment()
     {
         var availableList = EquipmentRepository.GetAll().Where(e => e.IsAvailable);
         return View(availableList);
     }
+
     public IActionResult Requests()
     {
         var requests = RequestRepository.GetAll();
         return View(requests);
+    }
+
+    public IActionResult AllEquipment()
+    {
+        var equipmentList = EquipmentRepository.GetAll();
+        return View(equipmentList);
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public IActionResult RequestForm(EquipmentRequest request)
+    {
+        if (!ModelState.IsValid)
+        {
+            return View(request);
+        }
+
+        RequestRepository.Add(request);
+
+        return RedirectToAction("Confirmation");
+    }
+    public IActionResult Confirmation()
+    {
+        ViewData["Message"] = "Your request has been submitted! Someone from IT will contact you soon.";
+        return View();
     }
 }
