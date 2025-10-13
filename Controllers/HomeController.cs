@@ -1,16 +1,21 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Assign1PROG30000.Models;
+using Assign1PROG30000.Models.Repository;
 
 namespace Assign1PROG30000.Controllers;
 
 public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
+    private readonly IEquipmentRepository _equipmentRepository;
+    private readonly IRequestRepository _requestRepository;
 
-    public HomeController(ILogger<HomeController> logger)
+    public HomeController(ILogger<HomeController> logger, IEquipmentRepository equipmentRepository, IRequestRepository requestRepository)
     {
         _logger = logger;
+        _equipmentRepository = equipmentRepository;
+        _requestRepository = requestRepository;
     }
 
     public IActionResult Index()
@@ -31,19 +36,19 @@ public class HomeController : Controller
 
     public IActionResult AvailableEquipment()
     {
-        var availableList = EquipmentRepository.GetAll().Where(e => e.IsAvailable);
+        var availableList = _equipmentRepository.GetAll().Where(e => e.IsAvailable);
         return View(availableList);
     }
 
     public IActionResult Requests()
     {
-        var allRequests = RequestRepository.GetAll();
+        var allRequests = _requestRepository.GetAll();
         return View(allRequests);
     }
 
     public IActionResult AllEquipment()
     {
-        var equipmentList = EquipmentRepository.GetAll();
+        var equipmentList = _equipmentRepository.GetAll();
         return View(equipmentList);
     }
     [HttpGet]
@@ -61,10 +66,10 @@ public class HomeController : Controller
             return View(request);
         }
 
-        RequestRepository.Add(request); 
+        _requestRepository.Add(request);
 
         ViewBag.RequestId = request.Id; 
 
-        return View("Confirmation"); // make sure this matches your confirmation view name
+        return View("Confirmation"); 
     }
 }

@@ -7,6 +7,7 @@ namespace Assign1PROG30000.Models
         private static int _nextId = 1;
 
         public int Id { get; set; }
+        public string Status { get; set; } = "";
 
         [Required(ErrorMessage = "Name is required.")]
         public string? Name { get; set; }

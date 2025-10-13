@@ -1,10 +1,10 @@
-namespace Assign1PROG30000.Models.Repository;
+namespace Assign1PROG30000.Models.Repository
 {
-    puclic interface IRequestRepository
+    public interface IRequestRepository
     {
-        IEnumerable<Equipment> GetAll();
-        IEnumerable<Equipment> GetPending();
-        void Add(Equipment equipment);
-        void UpdateStatus(Equipment equipment);
+        IEnumerable<EquipmentRequest> GetAll();
+        IEnumerable<EquipmentRequest> GetPending();
+        void Add(EquipmentRequest request);
+        void UpdateStatus(EquipmentRequest request);
     }
 }
