@@ -1,4 +1,4 @@
-namespace Assign1PROG30000.Models.Role
+namespace Assign1PROG30000.Models.Enum
 {
     public enum EnumRole
     {

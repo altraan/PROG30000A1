@@ -1,29 +1,33 @@
+using System.ComponentModel.DataAnnotations;
+using Assign1PROG30000.Models.Enum;
+
 namespace Assign1PROG30000.Models
 {
-    public static class Request
+    public class Request
     {
-        public int Id { get; set; } // Unique identifier for the request
+        public int Id { get; set; }
 
         [Required]
         public string? Name { get; set; }
 
         [Required]
-        public string? Email { get; set; }   // User's email address
+        public string? Email { get; set; } 
 
         [Required]
         public string? Phone { get; set; }
 
+        [Required]
         public EnumRole Role {get;set;}
 
         [Required]
-        public int? DurationDays { get; set; }  // Duration in days
+        public int? DurationDays { get; set; } 
 
         [Required]
         public int? EquipmentId { get; set; }
 
-        [Required]
-        public EnumStatus Status { get; set; }
+        public DateTime CreatedAt {get;set;} = DateTime.Now;
 
-        public DateTime CreatedAt {get;set;} = DateTime.Now; // User's role (Admin, User, etc.)
+        [Required]
+        public EnumStatus Status {get;set;} = EnumStatus.Pending;
     }
 }

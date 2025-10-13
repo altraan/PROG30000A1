@@ -10,10 +10,10 @@ namespace Assign1PROG30000.Models
 
         public DbSet<Equipment> Equipments => Set<Equipment>();
         public DbSet<Request> Requests => Set<Request>();
-    
-        protected override void OnModelCreating(ModelBuilder modelbuilder)
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelbuilder);
+            base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<Equipment> (entity =>
             {

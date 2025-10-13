@@ -1,18 +1,17 @@
 using Microsoft.EntityFrameworkCore;
-using WorkingWithData.Models;
+using Assign1PROG30000.Models;
+using Assign1PROG30000.Models.Enum;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 builder.Services.AddControllersWithViews();
 
-// Add Entity Framework
-builder.Services.AddDbContext<EventDbContext>(options =>
-    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddDbContext<FastEquipmentContext>(options =>
+    options.UseSqlite(builder.Configuration.GetConnectionString("FastEquipmentDb")));
+
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
