@@ -1,23 +1,40 @@
-using System.Collections.Generic;
-using Assign1PROG30000.Models.Enum;
-
-namespace Assign1PROG30000.Models
+using Microsoft.EntityFrameworkCore;
+namespace Assign1PROG30000.Models.Repository
 {
-    public static class EquipmentRepository
+    public class EquipmentRepository : IEquipmentRepository
     {
-        private static List<Equipment> _equipmentList = new List<Equipment>
-        {
-            new Equipment { Id = 1, Type = EnumType.Laptop, Description = "Dell XPS 13", IsAvailable = true },
-            new Equipment { Id = 2, Type = EnumType.Phone, Description = "iPhone 12", IsAvailable = false },
-            new Equipment { Id = 3, Type = EnumType.Tablet, Description = "iPad Air", IsAvailable = true },
-            new Equipment { Id = 4, Type = EnumType.Another, Description = "Wireless Keyboard", IsAvailable = true },
-            new Equipment { Id = 5, Type = EnumType.Laptop, Description = "HP Spectre", IsAvailable = false },
-            new Equipment { Id = 6, Type = EnumType.Phone, Description = "Samsung Galaxy S21", IsAvailable = true }
-        };
+        private readonly FastEquipmentContext _context;
 
-        public static IEnumerable<Equipment> GetAll()
+        public EquipmentRepository(FastEquipmentContext context)
         {
-            return _equipmentList;
+            _context = context;
         }
-    }
+
+        public IEnumerable<Equipment> GetAll()
+        {
+            return _context.Equipments.ToList();
+        }
+
+        public IEnumerable<Equipment> GetAvailable()
+        {
+            return _context.Equipments.Where(e => e.IsAvailable);
+        }
+
+        public Equipment? FindById(int id)
+        {
+            return _context.Equipments.Find(id);
+        }
+
+        public void Add(Equipment equipment)
+        {
+            _context.Equipments.Add(equipment);
+            _context.SaveChanges();
+        }
+
+        public void Update(Equipment equipment)
+        {
+            _context.Equipments.Update(equipment);
+            _context.SaveChanges();
+        }
+    }   
 }
