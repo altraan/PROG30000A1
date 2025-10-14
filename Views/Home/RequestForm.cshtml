@@ -1,4 +1,7 @@
 @model Assign1PROG30000.Models.EquipmentRequest
+@using Assign1PROG30000.Models
+@using Assign1PROG30000.Models.Enum
+@using System.Linq
 
 @{
     ViewData["Title"] = "Equipment Request Form";
@@ -7,25 +10,25 @@
 <h1>Request IT Equipment</h1>
 
 <form asp-action="RequestForm" method="post" class="needs-validation">
-    <div class="form-group">
+    <div class="form-group mb-3">
         <label asp-for="Name"></label>
         <input asp-for="Name" class="form-control" />
         <span asp-validation-for="Name" class="text-danger"></span>
     </div>
 
-    <div class="form-group">
+    <div class="form-group mb-3">
         <label asp-for="Email"></label>
         <input asp-for="Email" class="form-control" />
         <span asp-validation-for="Email" class="text-danger"></span>
     </div>
 
-    <div class="form-group">
+    <div class="form-group mb-3">
         <label asp-for="Phone"></label>
         <input asp-for="Phone" class="form-control" />
         <span asp-validation-for="Phone" class="text-danger"></span>
     </div>
 
-    <div class="form-group">
+    <div class="form-group mb-3">
         <label asp-for="Role"></label>
         <select asp-for="Role" class="form-control">
             <option value="">Select a role</option>
@@ -35,29 +38,38 @@
         <span asp-validation-for="Role" class="text-danger"></span>
     </div>
 
-    <div class="form-group">
+    <div class="form-group mb-3">
         <label asp-for="EquipmentType"></label>
         <select asp-for="EquipmentType" class="form-control">
             <option value="">Select equipment</option>
-            <option>Laptop</option>
-            <option>Phone</option>
-            <option>Tablet</option>
-            <option>Another</option>
+            @foreach (var type in Enum.GetValues(typeof(EnumType)).Cast<EnumType>())
+            {
+                <option value="@type">@type</option>
+            }
         </select>
         <span asp-validation-for="EquipmentType" class="text-danger"></span>
     </div>
 
-    <div class="form-group">
+
+    <div class="form-group mb-3">
         <label asp-for="RequestDetails"></label>
         <textarea asp-for="RequestDetails" class="form-control"></textarea>
         <span asp-validation-for="RequestDetails" class="text-danger"></span>
     </div>
 
-    <div class="form-group">
+    <div class="form-group mb-3">
         <label asp-for="Duration"></label>
         <input asp-for="Duration" class="form-control" type="number" />
         <span asp-validation-for="Duration" class="text-danger"></span>
     </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="EquipmentId"></label>
+        <select asp-for="EquipmentId" class="form-control" asp-items="ViewBag.AvailableEquipments"/>
+            <option value="">Select equipment</option>
+        </select>
+    <span asp-validation-for="EquipmentId" class="text-danger"></span>
+
 
     <button type="submit" class="btn btn-primary">Submit Request</button>
 </form>

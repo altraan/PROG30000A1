@@ -24,9 +24,11 @@ namespace Assign1PROG30000.Models
         public string? Role { get; set; }
 
         [Required(ErrorMessage = "Please select an equipment type.")]
+        [Display(Name = "Equipment Type")]
         public string? EquipmentType { get; set; }
 
         [Required(ErrorMessage = "Request details are required.")]
+        [Display(Name = "Request Details")]
         public string? RequestDetails { get; set; }
 
         [Range(1, int.MaxValue, ErrorMessage = "Duration must be greater than zero.")]
@@ -36,5 +38,7 @@ namespace Assign1PROG30000.Models
         {
             Id = _nextId++;
         }
+        
+        public int EquipmentId { get; set; }
     }
 }

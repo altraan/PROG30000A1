@@ -51,12 +51,23 @@ public class HomeController : Controller
         var equipmentList = _equipmentRepository.GetAll();
         return View(equipmentList);
     }
+    
     [HttpGet]
     public IActionResult RequestForm()
     {
-        var model = new EquipmentRequest(); // optional, just to pass an empty model
+        var availableEquipments = _equipmentRepository.GetAll()
+            .Where(e => e.IsAvailable)
+            .Select(e => new SelectListItem
+            {
+                Value = e.Id.ToString(),
+                Text = $"{e.Description} ({e.Type})"
+            }).ToList();
+
+        ViewBag.AvailableEquipments = availableEquipments;
+        var model = new EquipmentRequest();
         return View(model);
     }
+
 
     [HttpPost]
     public IActionResult RequestForm(EquipmentRequest request)
@@ -66,7 +77,7 @@ public class HomeController : Controller
             return View(request);
         }
 
-        _requestRepository.Add(request);
+        RequestRepository.Add(request); 
 
         ViewBag.RequestId = request.Id; 
 
