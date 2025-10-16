@@ -2,6 +2,8 @@ using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Assign1PROG30000.Models;
 using Assign1PROG30000.Models.Repository;
+using Microsoft.AspNetCore.Mvc.Rendering;
+
 
 namespace Assign1PROG30000.Controllers;
 
@@ -53,34 +55,31 @@ public class HomeController : Controller
     }
     
     [HttpGet]
-    public IActionResult RequestForm()
+    public ViewResult RequestForm()
     {
-        var availableEquipments = _equipmentRepository.GetAll()
-            .Where(e => e.IsAvailable)
-            .Select(e => new SelectListItem
-            {
-                Value = e.Id.ToString(),
-                Text = $"{e.Description} ({e.Type})"
-            }).ToList();
+        var availableEquipments = _equipmentRepository.GetAvailable();
 
-        ViewBag.AvailableEquipments = availableEquipments;
+
         var model = new EquipmentRequest();
+        model.Equipments = availableEquipments
         return View(model);
     }
 
 
     [HttpPost]
-    public IActionResult RequestForm(EquipmentRequest request)
+    public ViewResult RequestForm(EquipmentRequest equipmentRequest)
     {
         if (!ModelState.IsValid)
         {
-            return View(request);
+            var availableEquipments = _equipmentRepository.GetAvailable();
+            var model = new EquipmentRequest();
+            model.Equipments = availableEquipments
+            return View(model);
+
         }
 
-        RequestRepository.Add(request); 
+        _requestRepository.Add(equipmentRequest.request);
 
-        ViewBag.RequestId = request.Id; 
-
-        return View("Confirmation"); 
+        return View("Confirmation");
     }
-}
+} 

@@ -26,7 +26,6 @@ namespace Assign1PROG30000.Models
 
         public void UpdateStatus(EquipmentRequest request)
         {
-            request.Id = _nextId++;  
             _requests.Add(request);
         }
 

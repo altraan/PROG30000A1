@@ -11,69 +11,58 @@
 
 <form asp-action="RequestForm" method="post" class="needs-validation">
     <div class="form-group mb-3">
-        <label asp-for="Name"></label>
-        <input asp-for="Name" class="form-control" />
+        <label asp-for="Request.Name"></label>
+        <input asp-for="Request.Name" class="form-control" />
         <span asp-validation-for="Name" class="text-danger"></span>
     </div>
 
     <div class="form-group mb-3">
-        <label asp-for="Email"></label>
-        <input asp-for="Email" class="form-control" />
+        <label asp-for="Request.Email"></label>
+        <input asp-for="Request.Email" class="form-control" />
         <span asp-validation-for="Email" class="text-danger"></span>
     </div>
 
     <div class="form-group mb-3">
-        <label asp-for="Phone"></label>
-        <input asp-for="Phone" class="form-control" />
+        <label asp-for="Request.Phone"></label>
+        <input asp-for="Request.Phone" class="form-control" />
         <span asp-validation-for="Phone" class="text-danger"></span>
     </div>
 
     <div class="form-group mb-3">
-        <label asp-for="Role"></label>
-        <select asp-for="Role" class="form-control">
+        <label asp-for="Request.Role"></label>
+        <select asp-for="Request.Role" class="form-control">
             <option value="">Select a role</option>
-            <option>Student</option>
-            <option>Professor</option>
+            <option value="Student">Student</option>
+            <option value="Professor">Professor</option>
         </select>
         <span asp-validation-for="Role" class="text-danger"></span>
     </div>
 
+
     <div class="form-group mb-3">
-        <label asp-for="EquipmentType"></label>
-        <select asp-for="EquipmentType" class="form-control">
+        <label asp-for="Request.EquipmentId"></label>
+        <select asp-for="Request.EquipmentId" class="form-control">
             <option value="">Select equipment</option>
-            @foreach (var type in Enum.GetValues(typeof(EnumType)).Cast<EnumType>())
+            @foreach (var equipment in Model.Equipments)
             {
-                <option value="@type">@type</option>
+                <option value="equipment.Id">@equipment.Id @equipment.Description</option>
             }
         </select>
-        <span asp-validation-for="EquipmentType" class="text-danger"></span>
+        <span asp-validation-for="Request.EquipmentId" class="text-danger"></span>
     </div>
 
 
     <div class="form-group mb-3">
-        <label asp-for="RequestDetails"></label>
-        <textarea asp-for="RequestDetails" class="form-control"></textarea>
-        <span asp-validation-for="RequestDetails" class="text-danger"></span>
+        <label asp-for="Request.RequestDetails"></label>
+        <textarea asp-for="Request.RequestDetails" class="form-control"></textarea>
+        <span asp-validation-for="Request.RequestDetails" class="text-danger"></span>
     </div>
 
     <div class="form-group mb-3">
-        <label asp-for="Duration"></label>
-        <input asp-for="Duration" class="form-control" type="number" />
-        <span asp-validation-for="Duration" class="text-danger"></span>
+        <label asp-for="Request.Duration"></label>
+        <input asp-for="Request.Duration" class="form-control" type="number" />
+        <span asp-validation-for="Request.Duration" class="text-danger"></span>
     </div>
 
-    <div class="form-group mb-3">
-        <label asp-for="EquipmentId"></label>
-        <select asp-for="EquipmentId" class="form-control" asp-items="ViewBag.AvailableEquipments"/>
-            <option value="">Select equipment</option>
-        </select>
-    <span asp-validation-for="EquipmentId" class="text-danger"></span>
-
-
-    <button type="submit" class="btn btn-primary">Submit Request</button>
+        <button type="submit" class="btn btn-primary">Submit Request</button>
 </form>
-
-@section Scripts {
-    <partial name="_ValidationScriptsPartial" />
-}
