@@ -15,7 +15,5 @@ namespace Assign1PROG30000.Models
 
         [Required]
         public bool IsAvailable { get; set; }
-
-        public string? EquipmentType { get; set; }
     }
 }

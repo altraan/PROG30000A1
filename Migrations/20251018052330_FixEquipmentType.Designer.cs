@@ -3,6 +3,7 @@ using System;
 using Assign1PROG30000.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Assign1PROG30000.Migrations
 {
     [DbContext(typeof(FastEquipmentContext))]
-    partial class FastEquipmentContextModelSnapshot : ModelSnapshot
+    [Migration("20251018052330_FixEquipmentType")]
+    partial class FixEquipmentType
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "9.0.9");
