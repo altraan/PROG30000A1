@@ -13,19 +13,19 @@
     <div class="form-group mb-3">
         <label asp-for="Request.Name"></label>
         <input asp-for="Request.Name" class="form-control" />
-        <span asp-validation-for="Name" class="text-danger"></span>
+        <span asp-validation-for="Request.Name" class="text-danger"></span>
     </div>
 
     <div class="form-group mb-3">
         <label asp-for="Request.Email"></label>
         <input asp-for="Request.Email" class="form-control" />
-        <span asp-validation-for="Email" class="text-danger"></span>
+        <span asp-validation-for="Request.Email" class="text-danger"></span>
     </div>
 
     <div class="form-group mb-3">
         <label asp-for="Request.Phone"></label>
         <input asp-for="Request.Phone" class="form-control" />
-        <span asp-validation-for="Phone" class="text-danger"></span>
+        <span asp-validation-for="Request.Phone" class="text-danger"></span>
     </div>
 
     <div class="form-group mb-3">
@@ -35,19 +35,21 @@
             <option value="Student">Student</option>
             <option value="Professor">Professor</option>
         </select>
-        <span asp-validation-for="Role" class="text-danger"></span>
+        <span asp-validation-for="Request.Role" class="text-danger"></span>
     </div>
-
 
     <div class="form-group mb-3">
         <label asp-for="Request.EquipmentId"></label>
         <select asp-for="Request.EquipmentId" class="form-control">
             <option value="">Select equipment</option>
-            @foreach (var equipment in Model.Equipments)
+            @if (Model.Equipments != null)
             {
-                <option value="equipment.Id">@equipment.Id @equipment.Description</option>
+                foreach (var equipment in Model.Equipments!)
+                {
+                    <option value="@(equipment?.Id)">@($"{equipment?.Id} {equipment?.Description ?? ""}")</option>
+                }
             }
-        </select>
+            </select>
         <span asp-validation-for="Request.EquipmentId" class="text-danger"></span>
     </div>
 
@@ -59,10 +61,11 @@
     </div>
 
     <div class="form-group mb-3">
-        <label asp-for="Request.Duration"></label>
-        <input asp-for="Request.Duration" class="form-control" type="number" />
-        <span asp-validation-for="Request.Duration" class="text-danger"></span>
+        <label asp-for="Request.DurationDays"></label>
+        <input asp-for="Request.DurationDays" class="form-control" type="number" />
+        <span asp-validation-for="Request.DurationDays" class="text-danger"></span>
     </div>
 
-        <button type="submit" class="btn btn-primary">Submit Request</button>
+
+    <button type="submit" class="btn btn-primary">Submit Request</button>
 </form>

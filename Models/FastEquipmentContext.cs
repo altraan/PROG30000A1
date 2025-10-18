@@ -25,13 +25,12 @@ namespace Assign1PROG30000.Models
 
             modelBuilder.Entity<Request> (entity =>
             {
-                entity.HasKey(r => r.Id);
+                entity.HasKey(r => r.EquipmentId);
                 entity.Property(r => r.Name).IsRequired().HasMaxLength(100);
                 entity.Property(r => r.Email).IsRequired().HasMaxLength(200);
                 entity.Property(r => r.Phone).IsRequired().HasMaxLength(20);
                 entity.Property(r => r.Role).IsRequired();
                 entity.Property(r => r.DurationDays).IsRequired();
-                entity.Property(r => r.EquipmentId).IsRequired();
                 entity.Property(r => r.CreatedAt).IsRequired();
                 entity.Property(r => r.Status).IsRequired();
 

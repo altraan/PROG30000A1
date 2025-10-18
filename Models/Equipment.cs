@@ -8,12 +8,14 @@ namespace Assign1PROG30000.Models
         public int Id { get; set; }
 
         [Required]
-        public EnumType? Type { get; set; } 
+        public EnumType Type { get; set; } = EnumType.Phone;
 
         [Required]
         public string? Description { get; set; }
 
         [Required]
         public bool IsAvailable { get; set; }
+
+        public string? EquipmentType { get; set; }
     }
 }

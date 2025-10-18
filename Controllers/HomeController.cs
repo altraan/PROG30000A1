@@ -57,11 +57,11 @@ public class HomeController : Controller
     [HttpGet]
     public ViewResult RequestForm()
     {
-        var availableEquipments = _equipmentRepository.GetAvailable();
-
+        var availableEquipments = _equipmentRepository.GetAvailable() ?? new List<Equipment>();
 
         var model = new EquipmentRequest();
-        model.Equipments = availableEquipments
+        model.Equipments = _equipmentRepository.GetAvailable() ?? new List<Equipment>();
+        
         return View(model);
     }
 
@@ -71,15 +71,10 @@ public class HomeController : Controller
     {
         if (!ModelState.IsValid)
         {
-            var availableEquipments = _equipmentRepository.GetAvailable();
-            var model = new EquipmentRequest();
-            model.Equipments = availableEquipments
-            return View(model);
-
+            equipmentRequest.Equipments = _equipmentRepository.GetAvailable();
+            return View(equipmentRequest);
         }
-
-        _requestRepository.Add(equipmentRequest.request);
-
+        _requestRepository.Add(equipmentRequest);
         return View("Confirmation");
     }
 } 
